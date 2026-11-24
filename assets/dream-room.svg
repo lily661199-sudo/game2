@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#555044"/><stop offset=".65" stop-color="#3e4035"/><stop offset="1" stop-color="#252820"/></linearGradient>
+ <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#43352b"/><stop offset="1" stop-color="#171915"/></linearGradient>
+ <linearGradient id="wood" x2="1"><stop stop-color="#211813"/><stop offset=".18" stop-color="#69432d"/><stop offset=".48" stop-color="#895c3d"/><stop offset=".82" stop-color="#553a2b"/><stop offset="1" stop-color="#211a15"/></linearGradient>
+ <linearGradient id="wood2" x2="0" y2="1"><stop stop-color="#9b714b"/><stop offset=".12" stop-color="#68472f"/><stop offset=".88" stop-color="#4a3225"/><stop offset="1" stop-color="#1e1914"/></linearGradient>
+ <linearGradient id="cloth" x2="0" y2="1"><stop stop-color="#d2bf8c"/><stop offset="1" stop-color="#756b50"/></linearGradient>
+ <radialGradient id="lampGlow"><stop stop-color="#fff0bd" stop-opacity=".97"/><stop offset=".18" stop-color="#f5dfaa" stop-opacity=".45"/><stop offset="1" stop-color="#e8c77c" stop-opacity="0"/></radialGradient>
+ <linearGradient id="beam" x2="0" y2="1"><stop stop-color="#fff0c9" stop-opacity=".44"/><stop offset="1" stop-color="#f0cc80" stop-opacity="0"/></linearGradient>
+ <pattern id="paper" width="76" height="76" patternUnits="userSpaceOnUse"><rect width="76" height="76" fill="#6f735d"/><path d="M38 4 44 17 57 11 52 25 68 29 55 38 67 48 52 51 57 67 43 60 38 74 32 60 18 67 23 52 7 48 21 38 8 29 23 25 18 11 33 17Z" fill="#b1aa7a" fill-opacity=".28"/><path d="M38 16c12 8 12 22 0 30-12-8-12-22 0-30Z" fill="#d2c88f" fill-opacity=".35"/><circle cx="38" cy="38" r="3" fill="#e0d39a" fill-opacity=".5"/><path d="M0 0h76v76H0z" stroke="#343b32" stroke-opacity=".5"/></pattern>
+ <pattern id="grain" width="30" height="60" patternUnits="userSpaceOnUse"><path d="M5 0v60M18 0v60M26 0v60" stroke="#d4a16c" stroke-opacity=".13"/><path d="M1 13q8-7 15 0M15 42q8-7 15 0" stroke="#201710" stroke-opacity=".25"/></pattern>
+ <filter id="blur"><feGaussianBlur stdDeviation="32"/></filter>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+ <g id="drawer"><rect width="94" height="43" rx="2" fill="url(#wood2)" stroke="#241b15" stroke-width="4"/><rect x="5" y="5" width="84" height="32" fill="url(#grain)" opacity=".55"/><path d="M0 40h94" stroke="#b08254" stroke-opacity=".5"/><path d="M40 18h14l2 7H38z" fill="#baab82"/><circle cx="47" cy="21" r="2" fill="#514331"/></g>
+</defs>
+<!-- A vast, slightly crooked room, seen from a child's low viewpoint. -->
+<rect width="1600" height="900" fill="#131711"/><path d="M0 0h1600v608L0 666Z" fill="url(#wall)"/>
+<!-- patterned wallpaper panels -->
+<path d="M0 55 140 70v530L0 627Z" fill="url(#paper)" opacity=".68"/><path d="M790 25 1600 0v614L790 646Z" fill="url(#paper)" opacity=".66"/>
+<path d="M0 70 1600 0" stroke="#171917" stroke-width="25"/><path d="M0 651 1600 600" stroke="#171714" stroke-width="30"/><path d="M0 662 1600 611" stroke="#9a855e" stroke-opacity=".35" stroke-width="3"/>
+<!-- a hanging overhead beam -->
+<path d="M0 0h562l-24 112H0Z" fill="#211a15"/><path d="M52 12h438l-19 72H52Z" fill="url(#wood)"/><path d="M40 89h493v20H40z" fill="#100f0d"/><path d="M55 14h420v68H55z" fill="url(#grain)" opacity=".6"/>
+<!-- tiny framed portrait -->
+<g transform="translate(740 188) rotate(-5)"><rect width="82" height="110" fill="#201a15"/><rect x="7" y="7" width="68" height="96" fill="#a99062"/><rect x="13" y="13" width="56" height="84" fill="#26312d"/><ellipse cx="41" cy="47" rx="19" ry="24" fill="#c7b38b"/><path d="M18 85q23-38 47 0v8H18Z" fill="#37413a"/><circle cx="35" cy="46" r="2" fill="#171614"/><circle cx="49" cy="46" r="2" fill="#171614"/><path d="M36 58q6 4 12 0" stroke="#705b48" stroke-width="2"/></g>
+<!-- narrow tall cabinet, left -->
+<g transform="translate(80 135)"><ellipse cx="151" cy="501" rx="197" ry="25" fill="#080a08" opacity=".72" filter="url(#blur)"/><path d="M0 12 32 0h233l23 15v463l-28 24H-5Z" fill="#1e1915"/><path d="M12 18h245v445H12Z" fill="url(#wood)" stroke="#b08255" stroke-opacity=".37" stroke-width="5"/><path d="M22 26h224v427H22Z" fill="url(#grain)" opacity=".5"/><path d="M131 20v438" stroke="#241b15" stroke-width="9"/>
+<g transform="translate(29 43)"><use href="#drawer"/><use href="#drawer" y="50"/><use href="#drawer" y="100"/><use href="#drawer" y="150"/><use href="#drawer" y="200"/><use href="#drawer" y="250"/><use href="#drawer" y="300"/></g>
+<g transform="translate(142 43)"><use href="#drawer"/><use href="#drawer" y="50"/><use href="#drawer" y="100"/><use href="#drawer" y="150"/><use href="#drawer" y="200"/><use href="#drawer" y="250"/><use href="#drawer" y="300"/></g>
+<path d="M-4 470h278v29H-4z" fill="#2a211a"/><path d="M13 500v31h19v-30m215 0v30h19v-30" fill="#33241a"/></g>
+<!-- tall wardrobe on the right -->
+<g transform="translate(1200 60)"><ellipse cx="174" cy="597" rx="196" ry="28" fill="#070907" opacity=".85" filter="url(#blur)"/><path d="M18 0h303l20 30v540l-21 17H0V22Z" fill="#171512"/><path d="M31 21h278v527H31Z" fill="url(#wood)" stroke="#b38557" stroke-opacity=".55" stroke-width="5"/><path d="M45 36h116v492H45Z" fill="url(#wood2)" stroke="#241a14" stroke-width="6"/><path d="M177 36h116v492H177Z" fill="url(#wood2)" stroke="#241a14" stroke-width="6"/><path d="M51 45h104v475H51zM183 45h104v475H183z" fill="url(#grain)" opacity=".45"/>
+<g transform="translate(56 66)"><use href="#drawer"/><use href="#drawer" y="58"/><use href="#drawer" y="116"/><use href="#drawer" y="174"/><use href="#drawer" y="232"/><use href="#drawer" y="290"/></g>
+<g transform="translate(188 66)"><use href="#drawer"/><use href="#drawer" y="58"/><use href="#drawer" y="116"/><use href="#drawer" y="174"/><use href="#drawer" y="232"/><use href="#drawer" y="290"/></g>
+<path d="M0 550h338v29H0z" fill="#181411"/><path d="M23 579v31h22v-30m249 0v30h21v-31" fill="#251b14"/></g>
+<!-- central sink and impossible long legs -->
+<g transform="translate(601 383)"><ellipse cx="151" cy="273" rx="154" ry="25" fill="#090a08" opacity=".7" filter="url(#shadow)"/><path d="M56 81h195q-8 82-98 85-91-3-97-85Z" fill="url(#cloth)" stroke="#403a2e" stroke-width="8"/><path d="M57 81q95-35 195 0" fill="#e2d2a4"/><path d="M87 163 99 330h18l7-165m69 0 11 167h18l8-167" fill="#2d2720"/><path d="M111 177 110 328m93-150 10 150" stroke="#aa8b5c" stroke-opacity=".4" stroke-width="6"/><path d="M143 58v21m-15 1h31" stroke="#948c72" stroke-width="8" stroke-linecap="round"/><circle cx="143" cy="47" r="8" fill="#b0a582"/></g>
+<!-- porcelain basin in shadow -->
+<g transform="translate(228 496)"><path d="M0 0h133l-11 35H14Z" fill="#aaa48a"/><path d="M14 7q51 38 107 0" stroke="#e7ddbf" stroke-width="5"/><path d="M54 34v147m35-147v147" stroke="#37352d" stroke-width="13"/><path d="M40 180h62" stroke="#978d71" stroke-width="7"/></g>
+<!-- pendant lamp and dramatic pool of light -->
+<path d="M411 0v210" stroke="#1d1912" stroke-width="5"/><path d="M394 210q17-33 34 0l-5 26h-24Z" fill="#22231c"/><ellipse cx="410" cy="238" rx="30" ry="28" fill="#fff1c5"/><ellipse cx="410" cy="238" rx="240" ry="310" fill="url(#lampGlow)"/><path d="M388 243 175 662h540L433 243Z" fill="url(#beam)" opacity=".72"/>
+<!-- fallen coin-like compass -->
+<g transform="translate(1122 679) rotate(-14)"><ellipse cx="32" cy="14" rx="43" ry="22" fill="#070806" opacity=".7" filter="url(#shadow)"/><circle cx="27" cy="0" r="20" fill="#181b17" stroke="#aa8d59" stroke-width="4"/><path d="m27-12 5 12-5 12-5-12Z" fill="#d1b570"/><circle cx="27" cy="0" r="3" fill="#eee1b7"/></g>
+<!-- rug and worn plank floor -->
+<path d="M0 639 1600 600v300H0Z" fill="url(#floor)"/><path d="M0 652 1600 615" stroke="#9d7955" stroke-opacity=".45" stroke-width="6"/><path d="M0 714 1600 674M0 790 1600 745M0 861 1600 816" stroke="#bd9567" stroke-opacity=".14" stroke-width="3"/><path d="M265 900 694 646h561l345 254Z" fill="#24261e" stroke="#806d4c" stroke-width="7"/><path d="m334 890 365-215h474l318 215Z" fill="#394239" stroke="#ac986a" stroke-width="4"/><path d="M383 875 700 693h451l276 182Z" fill="none" stroke="#c0aa72" stroke-opacity=".45" stroke-width="3"/><path d="M426 860 717 710h415l242 150Z" fill="none" stroke="#c0aa72" stroke-opacity=".3" stroke-width="2"/>
+<!-- little hooded traveler, deliberately dwarfed by the room -->
+<g transform="translate(955 570)"><ellipse cx="34" cy="95" rx="40" ry="9" fill="#090a08" opacity=".75"/><path d="M18 35q15-27 35-3l12 51H4Z" fill="#b45e3d"/><path d="M16 29Q18 2 38 0q23 8 22 31L49 49 20 43Z" fill="#c48059"/><path d="M23 27q15-13 31 2l-2 13H24Z" fill="#221d18"/><path d="M14 80 8 96m46-14 13 12" stroke="#d1b684" stroke-width="6" stroke-linecap="round"/><path d="M45 58 68 65l-5 24-23-3Z" fill="#806944" stroke="#c5aa71" stroke-width="3"/><path d="M51 68h8" stroke="#e0c783" stroke-width="3"/></g>
+<!-- light motes -->
+<g fill="#f4e0a8" opacity=".72"><circle cx="474" cy="356" r="2"/><circle cx="521" cy="421" r="1.5"/><circle cx="338" cy="512" r="2"/><circle cx="616" cy="331" r="1.5"/><circle cx="842" cy="454" r="2"/><circle cx="900" cy="327" r="1.4"/><circle cx="741" cy="521" r="1.2"/></g>
+<rect width="1600" height="900" fill="#080b09" opacity=".16"/>
+</svg>
