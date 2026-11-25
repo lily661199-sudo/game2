@@ -1,0 +1,76 @@
+project_id: dream-tide-financial-literacy-game
+mode: teaching
+current_phase: sdlc-implementation
+requirements_version: 0.1
+gate_status: pending
+dt_handoff: pending
+sdlc_release: pending
+final_acceptance: pending
+confirmed:
+  - Target audience is elementary school students.
+  - Learning unit covers everyday financial literacy and investment.
+  - The game has two levels, each with one interactive exercise.
+  - A correct solution is required to receive that level's key.
+  - Each level shows its score and the ending shows learning progress.
+  - Delivery is a browser game intended for GitHub Pages or Netlify.
+  - User selected a Little Nightmares-inspired mood reference, without copying protected characters or assets.
+  - Educational reward profile selected: L/E/M/A weights 0.50/0.15/0.10/0.25.
+  - Guessing and overload penalties selected: G=0.15, C=0.10; no hard gates.
+  - User requested Blender addon/MCP setup before modeling.
+  - User approved the Empathize phase on 2026-11-24.
+  - User approved the Define phase and proposed L/E/M/A/G/C evidence plan on 2026-11-24.
+  - User approved installation of both local Blender integrations.
+  - User selected a combined A+B+D gameplay concept on 2026-11-25.
+  - User requested three ImageGen style images and that all later scenes, characters, 3D work, and animation follow the chosen style.
+  - User approved ImageGen CLI setup on 2026-11-25.
+  - User declined adding paid API credits and asked for GPT-made no-API style options on 2026-11-25.
+  - User selected style direction 2, layered paper storybook, on 2026-11-25.
+assumptions:
+  - Initial use is a short classroom or home learning activity; setting is not yet confirmed.
+  - Runtime contains no generative AI or financial transaction features.
+  - Learning evidence will initially use anonymous in-game choices and optional teacher observation.
+open_questions:
+  - Confirm whether the primary use setting is classroom, home, or both.
+  - Confirm the target grade/reading range and whether explain-back prompts fit the two-interaction constraint.
+  - Set numeric prototype targets after age range and use setting are agreed.
+  - Confirm whether Blender MCP listeners are active; direct background Blender is available for asset generation.
+artifacts:
+  project_brief: docs/project-brief.md
+  empathize: docs/empathize.md
+  define: docs/define.md
+  game_design_tournament: docs/game-design-tournament.md
+  combined_gameplay: docs/combined-gameplay.md
+  style_image_prompts: docs/style-image-prompts.md
+  imagegen_cli: docs/imagegen-cli.md
+  style_concept_1: assets/style-concepts/01-handcrafted-stop-motion.svg
+  style_concept_2: assets/style-concepts/02-layered-paper-storybook.svg
+  style_concept_3: assets/style-concepts/03-stylized-low-poly.svg
+  style_triptych: assets/style-concepts/style-triptych.svg
+  blender_style_triptych: assets/style-concepts/blender-style-triptych.png
+  blender_style_1: assets/style-concepts/rendered/01-handcrafted-stop-motion.png
+  blender_style_2: assets/style-concepts/rendered/02-layered-paper-storybook.png
+  blender_style_3: assets/style-concepts/rendered/03-stylized-low-poly-cinema.png
+  blender_style_source: tools/render-style-concepts.py
+  blender_style_compositor: tools/compose-style-triptych.ps1
+  selected_style: docs/visual-style-bible.md
+  selected_style_web_css: paper-storybook.css
+  selected_style_blender_project: assets/3d/dream-tide-paper-harbor.blend
+  selected_style_glb: assets/3d/dream-tide-paper-harbor.glb
+  selected_style_preview: assets/3d/production-render/02-layered-paper-storybook.png
+  selected_style_web_runtime: scene-3d.js
+  selected_style_blender_source: tools/render-style-concepts.py
+  student_worksheet: docs/student-worksheet.md
+  instructor_rubric: docs/instructor-rubric.md
+  blender_setup: docs/blender-setup.md
+  decision_log: docs/decision-log.md
+  change_log: docs/change-log.md
+  traceability: docs/traceability.md
+required_tests: []
+passed_tests: []
+known_limitations:
+  - The browser now loads one animated Blender room GLB shared across both interactions; dedicated market and lighthouse set dressing is still to be refined.
+  - Blender MCP listeners have not been confirmed active. The production Blender scene was generated with Blender 5.3 background mode instead.
+  - No classroom or player evidence has been collected; all future concept ratings must remain AI pre-scores until tested.
+  - Built-in ImageGen tool is not exposed in this session; ImageGen API returned HTTP 429 because the API organization has no credits. The three current visual options are assistant-authored SVG concept illustrations, not ImageGen outputs.
+  - The original comparison board remains a style study with less set detail than the supplied screenshot. The selected direction has a production .blend, animated character root, GLB, and web runtime, but the 3D scene remains an initial production pass and needs iterative art review.
+  - The current Codex process must restart to load the newly added Blender MCP server.

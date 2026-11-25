@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+<title id="title">風格提案 3：風格化低多邊形夢境電影</title><desc id="desc">幾何化的巨大夢境空間，旅人背著背包提燈前往目標抽屜與歸途之光。</desc>
+<defs>
+ <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#253f3e"/><stop offset=".58" stop-color="#172b2c"/><stop offset="1" stop-color="#0c181c"/></linearGradient>
+ <radialGradient id="aura"><stop stop-color="#f7d47a" stop-opacity=".75"/><stop offset="1" stop-color="#f7d47a" stop-opacity="0"/></radialGradient>
+ <linearGradient id="cab" x2="1" y2=".1"><stop stop-color="#67442e"/><stop offset=".48" stop-color="#b07842"/><stop offset="1" stop-color="#4a3429"/></linearGradient>
+ <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#4d4a3b"/><stop offset="1" stop-color="#101a1d"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="38"/></filter>
+ </defs>
+<rect width="1440" height="900" fill="url(#bg)"/><circle cx="790" cy="375" r="420" fill="url(#aura)" opacity=".7"/>
+<!-- angular monumental architecture --> <path d="M0 0h196v715H0zm1235 0h205v718h-205z" fill="#101a1c"/><path d="M196 0 361 0 335 656 196 715Zm1039 0L1080 0l32 655 123 63Z" fill="#263b39"/><path d="M0 0h1440v78L0 128Z" fill="#172728"/><path d="M0 650 1440 598v302H0Z" fill="url(#ground)"/><path d="m70 716 510-67 180 13-504 93Zm601-60 358-94 166 13-374 91Z" fill="#877552" opacity=".68"/>
+<!-- geometric beams --> <path d="m625 77 232 0 214 584H338Z" fill="#f6d676" opacity=".09"/><path d="m790 118 142 0 146 471H630Z" fill="#d7dfb2" opacity=".08"/>
+<!-- tall low-poly goal cabinet --> <path d="m757 212 328-33 28 425-356 39Z" fill="#211d1a"/><path d="m783 225 271-26 25 364-291 28Z" fill="url(#cab)" stroke="#d2a45f" stroke-opacity=".7" stroke-width="7"/>
+<path d="m803 251 230-23 5 69-231 22Zm5 92 231-22 5 70-231 21Zm6 91 232-22 5 69-232 22Zm6 89 232-22 4 55-232 22Z" fill="#704b31" stroke="#2c2520" stroke-width="8"/>
+<g fill="#e7bd6c"><path d="m913 267 18-2 5 18-18 2Z"/><path d="m920 359 18-2 4 18-18 2Z"/><path d="m927 450 18-2 4 18-18 2Z"/><path d="m933 539 18-2 3 18-18 2Z"/></g>
+<!-- open goal drawer and tokens --> <path d="m827 607 208-20 75 54-237 25Z" fill="#29221d"/><path d="m860 608 146-14 43 34-162 16Z" fill="#d39d4e"/><g fill="#ffe18a" stroke="#fff5cb" stroke-width="2"><path d="m884 611 16-2 8 17-17 2Z"/><path d="m923 608 16-2 8 17-17 2Z"/><path d="m961 604 16-2 8 17-17 2Z"/></g>
+<!-- geometric stepping paths --> <path d="m86 850 246-114 136-1-226 103Zm315-92 208-122 147-3-196 116Zm304-126 154-86 130-1-168 83Z" fill="#a48755" stroke="#d6b973" stroke-opacity=".55" stroke-width="4"/>
+<!-- traveler with faceted coat, hood and pack --> <ellipse cx="570" cy="742" rx="65" ry="16" fill="#060e11" opacity=".72"/><path d="m537 668 29-42 43 21 19 96-91 3Z" fill="#55736b" stroke="#a4b3a0" stroke-width="4"/><path d="m528 685 26-14 11 54-25 10-17-28Z" fill="#a56a46" stroke="#d19a68" stroke-width="4"/><path d="m546 635 18-30 31 6 15 27-18 29-38-5Z" fill="#d6ba91"/><path d="m545 636 5-27 38-16 22 25-7 29-24-19-26 18Z" fill="#1e2929"/><path d="m553 728-11 32m59-35 13 31" stroke="#1a2222" stroke-width="13" stroke-linecap="round"/><path d="M615 672q30 16 23 48" fill="none" stroke="#92713c" stroke-width="5"/><path d="m638 707 10 12-10 17-11-15Z" fill="#ffdc72"/><circle cx="639" cy="720" r="67" fill="url(#aura)"/>
+<!-- distant home beacon --> <path d="m1211 453 66-4-6 107-57 5Z" fill="#39635a" stroke="#a9bd9d" stroke-width="4"/><path d="m1202 455 41-50 43 47Z" fill="#a77b4b"/><path d="m1211 477 32-15 33 14-33 21Z" fill="#ffe396"/><path d="m1243 464 45-98 5 126 50 30-99-23Z" fill="#dfd087" opacity=".17"/>
+<!-- cinematic fog bands and color facets --> <path d="M0 572q211-51 408 4t381 2q286-68 651 9v72q-250-52-493 7t-486-3Q190 607 0 671Z" fill="#a0b8a1" opacity=".08"/><path d="m0 0 242 0-89 188-153 37Zm1440 0-211 0 106 148 105 18Z" fill="#65918b" opacity=".12"/><path d="M0 0h1440v900H0z" fill="none" stroke="#b3c1a1" stroke-opacity=".2" stroke-width="12"/>
+</svg>

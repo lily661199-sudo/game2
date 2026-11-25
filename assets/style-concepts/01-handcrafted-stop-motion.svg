@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+<title id="title">風格提案 1：手工定格動畫微縮模型</title><desc id="desc">霧港夢境中的微型小旅人、目標抽屜、背包與提燈小徑。</desc>
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#53614b"/><stop offset=".55" stop-color="#28352e"/><stop offset="1" stop-color="#111b19"/></linearGradient>
+ <radialGradient id="spot"><stop stop-color="#fff2be" stop-opacity=".96"/><stop offset=".35" stop-color="#f3c768" stop-opacity=".28"/><stop offset="1" stop-color="#f3c768" stop-opacity="0"/></radialGradient>
+ <linearGradient id="wood" x2="1" y2=".2"><stop stop-color="#39261e"/><stop offset=".45" stop-color="#714832"/><stop offset="1" stop-color="#281d19"/></linearGradient>
+ <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#514233"/><stop offset="1" stop-color="#171b19"/></linearGradient>
+ <linearGradient id="beam" x2=".9" y2="1"><stop stop-color="#ffe89c" stop-opacity=".4"/><stop offset="1" stop-color="#ffe89c" stop-opacity="0"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="34"/></filter>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="12"/><feColorMatrix values=".35 0 0 0 .3 .35 0 0 0 .27 .35 0 0 0 .18 0 0 0 .16 0"/></filter>
+ <pattern id="wallpaper" width="84" height="84" patternUnits="userSpaceOnUse"><path d="M42 6 57 28 42 50 27 28Z M0 70 14 84 M84 70 70 84" fill="none" stroke="#91a17a" stroke-opacity=".12" stroke-width="3"/><circle cx="42" cy="62" r="3" fill="#c9c995" opacity=".25"/></pattern>
+ </defs>
+<rect width="1440" height="900" fill="#0d1413"/><path d="M95 0h1250v675H95z" fill="url(#wall)"/><path d="M95 0h1250v675H95z" fill="url(#wallpaper)"/>
+<ellipse cx="725" cy="386" rx="560" ry="430" fill="url(#spot)" opacity=".75"/><path d="m720 82 320 605H385Z" fill="url(#beam)"/>
+<!-- deep room framing --> <path d="M0 0h155v730H0zM1322 0h118v730h-118z" fill="#151917"/><path d="M0 710 1440 670v230H0z" fill="url(#floor)"/><path d="M130 730 700 660l470 70-580 48Z" fill="#796344" opacity=".4"/>
+<!-- oversized hand-built goal cabinet --> <path d="M752 197 1079 177l38 454-365 21Z" fill="#201916"/><path d="m780 206 267-15 29 396-299 16Z" fill="url(#wood)" stroke="#a77c50" stroke-opacity=".55" stroke-width="9"/>
+<path d="m797 236 231-13 5 73-231 13Zm7 95 232-13 5 69-232 13Zm8 91 230-13 5 67-230 13Zm8 88 230-12 4 58-230 13Z" fill="#583a2a" stroke="#211b18" stroke-width="9"/>
+<g fill="#c39a5b"><circle cx="919" cy="267" r="8"/><circle cx="925" cy="357" r="8"/><circle cx="931" cy="444" r="8"/><circle cx="937" cy="528" r="8"/></g>
+<!-- goal drawer open with coins --> <path d="m818 605 207-12 78 62-240 18Z" fill="#241915"/><path d="m846 606 147-8 45 38-163 10Z" fill="#9a713f"/><g fill="#f5ca64" stroke="#fff0ad" stroke-width="3"><circle cx="883" cy="618" r="13"/><circle cx="920" cy="614" r="13"/><circle cx="958" cy="611" r="13"/></g>
+<!-- stepping paths --> <path d="m92 835 236-74 157 4-225 77Zm290-44 197-94 136 7-190 88Zm270-80 156-57 123 11-161 57Z" fill="#957650" opacity=".76" stroke="#d0a76d" stroke-opacity=".55" stroke-width="4"/>
+<!-- tiny traveler and backpack --> <ellipse cx="574" cy="732" rx="58" ry="15" fill="#080d0c" opacity=".7"/><path d="M540 660q28-38 66 1l11 66h-88Z" fill="#52634d" stroke="#b3a47a" stroke-width="5"/><path d="M527 681q-19 1-18 26l16 31 23-8-1-39Z" fill="#855a42" stroke="#c09169" stroke-width="5"/><circle cx="571" cy="634" r="28" fill="#d5b991"/><path d="M545 628q9-42 48-22 18 14 8 37l-17-18q-18 17-39 15Z" fill="#292924"/><path d="m555 726-9 29m54-28 10 27" stroke="#252520" stroke-width="12" stroke-linecap="round"/><path d="M616 670q33 14 23 48" fill="none" stroke="#a47c47" stroke-width="5"/><path d="M639 708q-18 12 0 26 18-14 0-26Z" fill="#ffd96d"/><ellipse cx="640" cy="720" rx="57" ry="53" fill="url(#spot)"/>
+<!-- home beacon --> <path d="m1212 456 62 0-8 98h-47Z" fill="#30483e" stroke="#92a486" stroke-width="5"/><path d="m1201 453 42-42 41 42Z" fill="#887853"/><circle cx="1243" cy="480" r="17" fill="#ffe8a0"/><path d="m1243 443 40-89 31 97Zm0 38 95 37-82 17Z" fill="#f6db8b" opacity=".2"/>
+<!-- foreground framing props --> <path d="M163 638v-160h117v160Z" fill="#33271e" stroke="#76593c" stroke-width="9"/><path d="M182 506h79v93h-79z" fill="#684c36"/><path d="M1160 632v-145l96-45v190Z" fill="#28211c" stroke="#72543b" stroke-width="8"/>
+<rect width="1440" height="900" filter="url(#grain)" opacity=".2"/><path d="M0 0h1440v900H0z" fill="none" stroke="#bd9564" stroke-opacity=".2" stroke-width="18"/>
+</svg>
