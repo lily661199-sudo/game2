@@ -81,7 +81,10 @@ function moveTarget(){
 new MutationObserver(moveTarget).observe(host,{attributes:true,attributeFilter:['class']});
 const loader=new GLTFLoader();
 loader.load('assets/3d/dream-tide-paper-harbor.glb',(gltf)=>{
-  room=gltf.scene;\n  const rawBounds=new THREE.Box3().setFromObject(room), rawSize=rawBounds.getSize(new THREE.Vector3()), rawCenter=rawBounds.getCenter(new THREE.Vector3());\n  const fitScale=Math.min(18/Math.max(rawSize.x,1),9/Math.max(rawSize.y,1),24/Math.max(rawSize.z,1));\n  room.scale.setScalar(fitScale);room.position.set(-rawCenter.x*fitScale,-rawCenter.y*fitScale,-rawCenter.z*fitScale);scene.add(room);
+  room=gltf.scene;
+  const rawBounds=new THREE.Box3().setFromObject(room), rawSize=rawBounds.getSize(new THREE.Vector3()), rawCenter=rawBounds.getCenter(new THREE.Vector3());
+  const fitScale=Math.min(18/Math.max(rawSize.x,1),9/Math.max(rawSize.y,1),24/Math.max(rawSize.z,1));
+  room.scale.setScalar(fitScale);room.position.set(-rawCenter.x*fitScale,-rawCenter.y*fitScale,-rawCenter.z*fitScale);scene.add(room);
   room.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;if(node.material)node.material.needsUpdate=true}});
   bounds.setFromObject(room);if(gltf.animations.length){mixer=new THREE.AnimationMixer(room);gltf.animations.forEach(clip=>mixer.clipAction(clip).play())}
   host.classList.add('paper-3d-ready');moveTarget();hero.visible=true;
@@ -108,4 +111,5 @@ function draw(){requestAnimationFrame(draw);const dt=Math.min(clock.getDelta(),.
   if(mixer)mixer.update(dt);camera.lookAt(cameraTarget);renderer.render(scene,camera)
 }
 requestAnimationFrame(draw);
+
 
