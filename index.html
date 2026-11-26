@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="cinematic.css" />
   <link rel="stylesheet" href="layers.css" />
   <link rel="stylesheet" href="paper-storybook.css" />
+  <link rel="stylesheet" href="immersive-game.css" />
   <script type="importmap">
     {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
   </script>
@@ -27,10 +28,29 @@
       <div class="hero-coordinate">霧港 · 第一夜 <span>01 / 02</span></div><div class="scroll-hint">向前走，就會找到光 <b>↓</b></div>
     </section>
     <section id="game" class="screen game-screen">
-      <div class="game-head"><div><p class="eyebrow" id="levelEyebrow">第一關 · 霧港小市集</p><h2 id="levelTitle">零用錢的選擇</h2></div><div class="score-card"><span>本關得分</span><strong id="score">0</strong><small>/ 100</small></div></div>
-      <div class="progress"><span id="progressBar"></span></div>
-      <div class="game-layout"><div class="scene-card"><div class="scene-art" id="sceneArt"><canvas id="sceneCanvas" aria-label="紙藝夢境立體場景"></canvas><div class="scene-moon"></div><div class="scene-lamp">✦</div><div class="market-stall"><div class="awning"></div><div class="stall-sign">霧港小市集</div><div class="stall-goods">☁　◉　☁</div></div><div class="scene-figure">☂</div><div class="scene-ground"></div></div><div class="scene-meta"><span class="location-dot"></span><span id="location">霧港 · 小市集</span><span class="scene-time">夜色漸深</span></div></div>
-        <div class="challenge"><div class="key-status"><span class="key-icon" id="keyIcon">⚿</span><span id="keyText">找到通關線索，取得夢境鑰匙</span></div><div class="story-tag" id="storyTag">夢境事件 01</div><h3 id="question">你有 100 元零用錢，想買玩具，也想存錢。怎麼分配比較好？</h3><p class="question-hint" id="questionHint">選擇一個你認為最好的做法</p><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="next-btn" id="nextBtn" disabled>確認選擇 <span>→</span></button></div></div>
+      <div class="immersive-game">
+        <div class="scene-card"><div class="scene-art" id="sceneArt"><canvas id="sceneCanvas" aria-label="紙藝夢境立體場景"></canvas><div class="scene-moon"></div><div class="scene-lamp">✦</div><div class="market-stall"><div class="awning"></div><div class="stall-sign">霧港小市集</div><div class="stall-goods">☁　◉　☁</div></div><div class="scene-figure">☂</div><div class="scene-ground"></div></div></div>
+        <div class="game-hud">
+          <div class="game-head"><div><p class="eyebrow" id="levelEyebrow">第一關 · 霧港小市集</p><h2 id="levelTitle">零用錢的選擇</h2></div><div class="score-card"><span>本關得分</span><strong id="score">0</strong><small>/ 100</small></div></div>
+          <div class="progress"><span id="progressBar"></span></div>
+          <div class="key-status"><span class="key-icon" id="keyIcon">⚿</span><span id="keyText">找到通關線索，取得夢境鑰匙</span></div>
+        </div>
+        <button type="button" id="sceneInteract" class="scene-hotspot" aria-haspopup="dialog" aria-controls="questionDialog">
+          <span class="hotspot-orbit"><span class="hotspot-glyph">✦</span></span><span class="hotspot-label" id="interactLabel">打開目標抽屜</span>
+        </button>
+        <div class="world-caption"><span class="location-dot"></span><span id="location">霧港 · 小市集</span><span class="caption-divider">·</span><span id="worldCaption">點一下微光，看看抽屜裡的秘密</span></div>
+        <dialog id="questionDialog" class="question-dialog" aria-labelledby="question">
+          <article class="challenge">
+            <button type="button" id="closeQuestionBtn" class="question-close" aria-label="關閉題卡">×</button>
+            <div class="story-tag" id="storyTag">夢境事件 01</div>
+            <h3 id="question">你有 100 元零用錢，想買玩具，也想存錢。怎麼分配比較好？</h3>
+            <p class="question-hint" id="questionHint">選擇一個你認為最好的做法</p>
+            <div class="answers" id="answers"></div>
+            <div class="feedback" id="feedback" aria-live="polite"></div>
+            <button class="next-btn" id="nextBtn" disabled>確認選擇 <span>→</span></button>
+          </article>
+        </dialog>
+      </div>
     </section>
     <section id="result" class="screen result-screen"><div class="result-orbit"><span>✦</span><div class="orbit-core">夢<br>之<br>光</div></div><p class="eyebrow">旅程完成 · 霧已散去</p><h2>你帶著新的<br><em>本領回家</em></h2><p class="result-desc">每一次選擇，都讓你更懂得照顧未來的自己。</p><div class="results-grid"><article><span class="result-icon">◈</span><small>冒險總分</small><strong id="totalScore">0</strong><span class="unit">/ 200</span></article><article><span class="result-icon">▣</span><small>取得鑰匙</small><strong id="keysCount">0</strong><span class="unit">把夢境鑰匙</span></article><article><span class="result-icon">↗</span><small>理財進步</small><strong id="progressText">起步中</strong><span class="unit">一步一步更好</span></article></div><div class="skills"><span>你學會了</span><b>先存後花</b><i>·</i><b>分散風險</b><i>·</i><b>耐心等待</b></div><button class="primary" id="againBtn">再走一次 <span>↻</span></button><p class="result-foot">小提醒：投資有風險，做決定前先學習、和家人討論。</p></section>
   </main>
@@ -39,3 +59,4 @@
   <script type="module" src="scene-3d.js"></script>
 </body>
 </html>
+

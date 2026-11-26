@@ -19,3 +19,8 @@
 - Replaced that first-pass board with three matching-composition Blender 5.3 Cycles renders (1600×900 each) and a single labelled PNG comparison at `assets/style-concepts/blender-style-triptych.png`; the third direction uses a distinct cool-blue geometric palette. No paid API calls were retried. The images are style studies, not a claim of final-parity art; detailed production assets and animation wait for style selection.
 - Owner selected direction 2 (layered paper storybook). Added a project visual-style decision and a dedicated responsive stylesheet that re-skins the title, level, answer, score, key, and progress screens; the selected Blender concept image now anchors the in-game scene art. No paid API request was made.
 - Used Blender 5.3 background mode to save an editable paper-harbor `.blend`, export a 1.9 MB GLB, and render the selected scene. Added a 72-frame looping idle animation for the traveler, and a Three.js runtime that loads the GLB into the level scene while retaining the rendered image as a fallback. The market/lighthouse-specific set dressing still needs a later art pass. No ImageGen request was made.
+
+## 2026-11-26 — 沉浸式點擊場景
+- 關卡改為滿版夢境場景與角落得分/進度/鑰匙 HUD。
+- 點擊場景微光才展開題卡，支援關閉、再次開啟與點選音效。
+- 保留兩關理財題、答題計分、通關鑰匙與結尾進步成果。
