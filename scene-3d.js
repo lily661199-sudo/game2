@@ -1,115 +1,66 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-const host = document.getElementById('sceneArt');
-const canvas = document.getElementById('sceneCanvas');
-if (!host || !canvas) throw new Error('The 3D scene canvas is missing.');
-
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.18;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-const scene = new THREE.Scene();
-scene.fog = new THREE.Fog('#30483d', 40, 95);
-renderer.setClearColor('#30483d', 0);
-scene.add(new THREE.HemisphereLight('#fff0cf', '#334338', 2.1));
-const lanternWash = new THREE.PointLight('#ffd58a', 42, 18, 1.7);
-lanternWash.position.set(-.7, 2.2, 2.2); scene.add(lanternWash);
-const keyLight = new THREE.DirectionalLight('#f7dba0', 2.4);
-keyLight.position.set(-4.5, 10, 7); keyLight.castShadow = true; scene.add(keyLight);
-const fillLight = new THREE.DirectionalLight('#c7e0c4', 1.15);
-fillLight.position.set(7, 7, -4); scene.add(fillLight);
-const camera = new THREE.PerspectiveCamera(42, 1, .1, 160);
-let room = null, bounds = new THREE.Box3(new THREE.Vector3(-10,0,-10),new THREE.Vector3(10,8,10));
-const cameraTarget = new THREE.Vector3(0, 2.2, 0), cameraGoal = new THREE.Vector3(-3.6, 2.8, 18.8);
-camera.position.copy(cameraGoal); camera.lookAt(cameraTarget);
-let mixer=null, hero=null, legs=[], chest=null, chestGlow=null, roomFloor=0, playing=false, jumping=false, jumpVelocity=0;
-const held = new Set();
-const move = {x:0,z:0};
-const clock = new THREE.Clock();
-const paper = (color,roughness=.86)=>new THREE.MeshStandardMaterial({color,roughness,flatShading:true});
+const host=document.getElementById('sceneArt'), canvas=document.getElementById('sceneCanvas');
+if(!host||!canvas)throw new Error('The 3D scene canvas is missing.');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.setClearColor(0x000000,0);
+const scene=new THREE.Scene();scene.add(new THREE.HemisphereLight('#fff0cf','#334338',2.1));
+const key=new THREE.DirectionalLight('#f7dba0',2.1);key.position.set(-4,8,9);key.castShadow=true;scene.add(key);
+const warm=new THREE.PointLight('#ffd58a',2.6,7,1.6);scene.add(warm);
+const camera=new THREE.OrthographicCamera(-9,9,5.1,-5.1,.1,100);camera.position.set(0,1.6,20);camera.lookAt(0,-.2,0);
+const paper=(color,roughness=.82)=>new THREE.MeshStandardMaterial({color,roughness,flatShading:true});
+let aspect=16/9,span=18, floorY=-3.75, playing=false,jumping=false,jumpVelocity=0,hero,chest,orb,orbLight,shadow,legs=[],roomClock=0;
+const held=new Set(),clock=new THREE.Clock();
 function makeHero(){
-  hero=new THREE.Group();
-  const body=new THREE.Mesh(new THREE.ConeGeometry(.42,1.05,7),paper('#244d45'));
-  body.position.y=.72; body.castShadow=true; hero.add(body);
-  const scarf=new THREE.Mesh(new THREE.ConeGeometry(.31,.38,7),paper('#c58e46'));
-  scarf.position.set(0,1.3,.015); scarf.castShadow=true; hero.add(scarf);
-  const head=new THREE.Mesh(new THREE.SphereGeometry(.26,10,8),paper('#e8cda1'));
-  head.scale.set(1,.9,.82); head.position.y=1.33; head.castShadow=true; hero.add(head);
-  const hood=new THREE.Mesh(new THREE.ConeGeometry(.31,.45,7),paper('#d4a953'));
-  hood.position.set(0,1.58,0); hood.rotation.z=-.08; hood.castShadow=true; hero.add(hood);
-  const eyeMat=new THREE.MeshBasicMaterial({color:'#17231f'});
-  for(const x of [-.09,.09]){const eye=new THREE.Mesh(new THREE.SphereGeometry(.025,6,6),eyeMat);eye.position.set(x,1.34,.22);hero.add(eye)}
-  for(const side of [-1,1]){
-    const leg=new THREE.Mesh(new THREE.CylinderGeometry(.055,.07,.37,6),paper('#493d32'));
-    leg.position.set(side*.14,.24,0);leg.castShadow=true;hero.add(leg);legs.push(leg);
-  }
-  const lamp=new THREE.PointLight('#f6cb77',2.5,3);lamp.position.set(.3,.95,.36);hero.add(lamp);
-  hero.visible=false;scene.add(hero);
+ hero=new THREE.Group();
+ const cloak=new THREE.Mesh(new THREE.ConeGeometry(.42,1.14,7),paper('#245147'));cloak.position.y=.7;cloak.castShadow=true;hero.add(cloak);
+ const collar=new THREE.Mesh(new THREE.ConeGeometry(.32,.28,7),paper('#c89049'));collar.position.y=1.22;hero.add(collar);
+ const face=new THREE.Mesh(new THREE.SphereGeometry(.255,12,9),paper('#e7cfaa'));face.scale.set(1,.9,.84);face.position.set(0,1.35,.08);face.castShadow=true;hero.add(face);
+ const hood=new THREE.Mesh(new THREE.ConeGeometry(.31,.48,7),paper('#d8ad5e'));hood.position.set(0,1.59,.04);hood.castShadow=true;hero.add(hood);
+ const eyeMat=new THREE.MeshBasicMaterial({color:'#20231e'});for(const x of [-.09,.09]){const eye=new THREE.Mesh(new THREE.SphereGeometry(.024,7,6),eyeMat);eye.position.set(x,1.36,.295);hero.add(eye)}
+ for(const side of [-1,1]){const leg=new THREE.Mesh(new THREE.CylinderGeometry(.06,.075,.36,7),paper('#463a31'));leg.position.set(side*.14,.18,.02);leg.castShadow=true;hero.add(leg);legs.push(leg)}
+ const sleeve=new THREE.Mesh(new THREE.ConeGeometry(.105,.34,6),paper('#c89049'));sleeve.position.set(.38,.91,.04);sleeve.rotation.z=-.55;hero.add(sleeve);
+ const lamp=new THREE.PointLight('#f4cb7c',1.1,2.6);lamp.position.set(.36,1,.35);hero.add(lamp);
+ scene.add(hero);
+ shadow=new THREE.Mesh(new THREE.CircleGeometry(.45,24),new THREE.MeshBasicMaterial({color:'#151b16',transparent:true,opacity:.27,depthWrite:false}));shadow.scale.y=.32;shadow.position.set(0,floorY+.018,.2);scene.add(shadow);
 }
 function makeChest(){
-  chest=new THREE.Group();
-  const base=new THREE.Mesh(new THREE.BoxGeometry(.86,.5,.58),paper('#65452f'));
-  base.position.y=.32;base.castShadow=true;base.receiveShadow=true;chest.add(base);
-  const lid=new THREE.Mesh(new THREE.BoxGeometry(.9,.16,.62),paper('#9a693e'));
-  lid.position.y=.66;lid.castShadow=true;chest.add(lid);
-  const bandMat=paper('#d5ae68',.45);
-  const band=new THREE.Mesh(new THREE.BoxGeometry(.075,.62,.63),bandMat);band.position.y=.42;chest.add(band);
-  const lock=new THREE.Mesh(new THREE.TorusGeometry(.095,.027,6,12),paper('#f1d38b',.38));lock.position.set(0,.4,.33);chest.add(lock);
-  const orb=new THREE.Mesh(new THREE.IcosahedronGeometry(.2,1),new THREE.MeshBasicMaterial({color:'#ffe29e'}));orb.position.set(0,1.02,0);chest.add(orb);
-  chestGlow=new THREE.PointLight('#ffcf72',1.7,5);chestGlow.position.set(0,1.1,.4);chest.add(chestGlow);
-  scene.add(chest);
+ chest=new THREE.Group();const wood=paper('#65472f'),trim=paper('#d0a65e',.46);
+ const base=new THREE.Mesh(new THREE.BoxGeometry(.88,.48,.52),wood);base.position.y=.28;base.castShadow=true;chest.add(base);
+ const lid=new THREE.Mesh(new THREE.BoxGeometry(.94,.18,.56),paper('#997044'));lid.position.y=.6;lid.castShadow=true;chest.add(lid);
+ const band=new THREE.Mesh(new THREE.BoxGeometry(.08,.59,.58),trim);band.position.y=.37;chest.add(band);
+ const lock=new THREE.Mesh(new THREE.TorusGeometry(.09,.026,7,14),trim);lock.position.set(0,.34,.3);chest.add(lock);
+ orb=new THREE.Mesh(new THREE.OctahedronGeometry(.19,1),new THREE.MeshBasicMaterial({color:'#ffe39e'}));orb.position.set(0,1.08,0);chest.add(orb);
+ orbLight=new THREE.PointLight('#ffcf72',2.2,4);orbLight.position.set(0,1,.4);chest.add(orbLight);scene.add(chest);
+ const floorGlow=new THREE.Mesh(new THREE.CircleGeometry(.8,28),new THREE.MeshBasicMaterial({color:'#e8b964',transparent:true,opacity:.18,depthWrite:false}));floorGlow.scale.y=.48;floorGlow.position.set(0,.025,0);chest.add(floorGlow);
+}
+function layout(){const tower=host.classList.contains('tower-scene');span=10.6*aspect;floorY=-3.65;
+ hero.position.set(tower?-span*.28:-span*.3,floorY,0);chest.position.set(tower?span*.28:span*.29,floorY,0);
+ shadow.position.set(hero.position.x,floorY+.02,.2);warm.position.set(chest.position.x,floorY+1.5,1.1);
+ camera.left=-span/2;camera.right=span/2;camera.top=5.3;camera.bottom=-5.3;camera.position.set(0,1.7,20);camera.lookAt(0,-.1,0);camera.updateProjectionMatrix();
 }
 makeHero();makeChest();
-function moveTarget(){
-  const tower=host.classList.contains('tower-scene');
-  const width=Math.max(4,bounds.max.x-bounds.min.x),depth=Math.max(5,bounds.max.z-bounds.min.z);
-  roomFloor=bounds.min.y+.02;
-  const stageX=tower?bounds.min.x+width*.68:bounds.min.x+width*.34;
-  chest.position.set(stageX,roomFloor,bounds.min.z+depth*.6);
-  const spawnX=tower?bounds.min.x+width*.25:bounds.min.x+width*.08;
-  hero.position.set(spawnX,roomFloor,bounds.max.z+depth*.18);
-  move.x=0;move.z=0;
-  cameraGoal.set(hero.position.x-3.5,hero.position.y+2.6,hero.position.z+Math.max(12,depth*.8));
-  cameraTarget.set(hero.position.x+1.7,hero.position.y+1.15,(bounds.min.z+bounds.max.z)*.42);
-  lanternWash.position.set(stageX,roomFloor+2.5, chest.position.z+1);
-  lanternWash.intensity=tower?195:150;
-}
-new MutationObserver(moveTarget).observe(host,{attributes:true,attributeFilter:['class']});
-const loader=new GLTFLoader();
-loader.load('assets/3d/dream-tide-paper-harbor.glb',(gltf)=>{
-  room=gltf.scene;
-  const rawBounds=new THREE.Box3().setFromObject(room), rawSize=rawBounds.getSize(new THREE.Vector3()), rawCenter=rawBounds.getCenter(new THREE.Vector3());
-  const fitScale=Math.min(18/Math.max(rawSize.x,1),9/Math.max(rawSize.y,1),24/Math.max(rawSize.z,1));
-  room.scale.setScalar(fitScale);room.position.set(-rawCenter.x*fitScale,-rawCenter.y*fitScale,-rawCenter.z*fitScale);scene.add(room);
-  room.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;if(node.material)node.material.needsUpdate=true}});
-  bounds.setFromObject(room);if(gltf.animations.length){mixer=new THREE.AnimationMixer(room);gltf.animations.forEach(clip=>mixer.clipAction(clip).play())}
-  host.classList.add('paper-3d-ready');moveTarget();hero.visible=true;
-},undefined,error=>console.warn('Blender scene did not load; keeping the illustrated fallback.',error));
-function projectChest(){const p=chest.position.clone().add(new THREE.Vector3(0,1.15,0)).project(camera);const x=(p.x*.5+.5)*host.clientWidth;const y=(-p.y*.5+.5)*host.clientHeight;document.documentElement.style.setProperty('--hotspot-x',`${x}px`);document.documentElement.style.setProperty('--hotspot-y',`${y}px`)}
-function resize(){const width=Math.max(1,host.clientWidth),height=Math.max(1,host.clientHeight);renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix()}
+new MutationObserver(layout).observe(host,{attributes:true,attributeFilter:['class']});
+// The Blender render supplies the full paper-diorama environment; the Three.js layer animates the hero and the clickable key chest in front.
+host.classList.add('paper-3d-ready');layout();hero.visible=true;
+function projectChest(){const p=chest.position.clone().add(new THREE.Vector3(0,1.12,0)).project(camera);document.documentElement.style.setProperty('--hotspot-x',`${(p.x*.5+.5)*host.clientWidth}px`);document.documentElement.style.setProperty('--hotspot-y',`${(-p.y*.5+.5)*host.clientHeight}px`)}
+function resize(){const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);aspect=w/h;renderer.setSize(w,h,false);layout()}
 new ResizeObserver(resize).observe(host);resize();
-function onKeyDown(e){const k=e.key.toLowerCase();if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)&&playing&&!document.getElementById('questionDialog')?.open)e.preventDefault();held.add(k);if(k==='e'&&playing&&!document.getElementById('questionDialog')?.open)window.dispatchEvent(new CustomEvent('dream-interact'))}
-function onKeyUp(e){held.delete(e.key.toLowerCase())}
-window.addEventListener('keydown',onKeyDown);window.addEventListener('keyup',onKeyUp);window.addEventListener('blur',()=>held.clear());
-window.addEventListener('dream-game-state',e=>{playing=Boolean(e.detail?.playing);if(!playing)held.clear()});
-function draw(){requestAnimationFrame(draw);const dt=Math.min(clock.getDelta(),.04);const t=clock.elapsedTime;
-  const canMove=playing&&!document.getElementById('questionDialog')?.open;
-  move.x=canMove?((held.has('d')||held.has('arrowright'))?1:0)-((held.has('a')||held.has('arrowleft'))?1:0):0;
-  move.z=canMove?((held.has('s')||held.has('arrowdown'))?1:0)-((held.has('w')||held.has('arrowup'))?1:0):0;
-  if(canMove&&held.has(' ')&&!jumping){jumping=true;jumpVelocity=5.1}
-  const speed=canMove&&held.has('shift')?4.2:2.3;
-  if(hero&&canMove&&(move.x||move.z)){const len=Math.hypot(move.x,move.z)||1;hero.position.x+=move.x/len*speed*dt;hero.position.z+=move.z/len*speed*dt;hero.rotation.y=Math.atan2(move.x,move.z);const stride=Math.sin(t*12*(speed>3?1.3:1));legs.forEach((leg,i)=>leg.rotation.x=stride*(i?-.45:.45));}
-  if(jumping&&hero){hero.position.y+=jumpVelocity*dt;jumpVelocity-=12*dt;if(hero.position.y<=roomFloor){hero.position.y=roomFloor;jumping=false;jumpVelocity=0}}
-  if(hero){const w=bounds.max.x-bounds.min.x,d=bounds.max.z-bounds.min.z;hero.position.x=THREE.MathUtils.clamp(hero.position.x,bounds.min.x+w*.025,bounds.max.x-w*.025);hero.position.z=THREE.MathUtils.clamp(hero.position.z,bounds.min.z-d*.02,bounds.max.z+d*.2);if(canMove&&!(move.x||move.z))legs.forEach(leg=>leg.rotation.x*=.82);hero.position.y=jumping?hero.position.y:roomFloor+Math.sin(t*2.2)*.025;
-    const target=new THREE.Vector3(hero.position.x-3.5,hero.position.y+2.6,hero.position.z+Math.max(12,(bounds.max.z-bounds.min.z)*.8));camera.position.lerp(target,1-Math.pow(.002,dt));cameraTarget.lerp(new THREE.Vector3(hero.position.x+1.7,hero.position.y+1.15,(bounds.min.z+bounds.max.z)*.42),1-Math.pow(.002,dt));
-  }
-  if(chest){chest.children[4].rotation.y=t*.55;chest.children[4].position.y=1.02+Math.sin(t*2)*.07;projectChest()}
-  if(mixer)mixer.update(dt);camera.lookAt(cameraTarget);renderer.render(scene,camera)
+function down(e){const k=e.key.toLowerCase();if(playing&&!document.getElementById('questionDialog')?.open&&['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();held.add(k);if(k==='e'&&playing&&!document.getElementById('questionDialog')?.open)window.dispatchEvent(new CustomEvent('dream-interact'))}
+function up(e){held.delete(e.key.toLowerCase())}
+window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('blur',()=>held.clear());window.addEventListener('dream-game-state',e=>{playing=Boolean(e.detail?.playing);if(!playing)held.clear()});
+function draw(){requestAnimationFrame(draw);const dt=Math.min(clock.getDelta(),.04);roomClock+=dt;const t=roomClock;const active=playing&&!document.getElementById('questionDialog')?.open;
+ const dx=active?((held.has('d')||held.has('arrowright'))?1:0)-((held.has('a')||held.has('arrowleft'))?1:0):0;
+ const dz=active?((held.has('s')||held.has('arrowdown'))?1:0)-((held.has('w')||held.has('arrowup'))?1:0):0;
+ if(active&&held.has(' ')&&!jumping){jumping=true;jumpVelocity=5.2}
+ if(hero){const speed=active&&held.has('shift')?4:2.25;hero.position.x=THREE.MathUtils.clamp(hero.position.x+dx*speed*dt,-span*.43,span*.43);hero.position.z=THREE.MathUtils.clamp(hero.position.z+dz*speed*dt,-1.2,1.2);
+ if(jumping){hero.position.y+=jumpVelocity*dt;jumpVelocity-=13*dt;if(hero.position.y<=floorY){hero.position.y=floorY;jumping=false;jumpVelocity=0}}
+ if(dx){hero.rotation.y=dx<0?Math.PI:0;const stride=Math.sin(t*(speed>3?17:12))*.55;legs.forEach((leg,i)=>leg.rotation.x=stride*(i?-1:1))}else legs.forEach(leg=>leg.rotation.x*=.82);
+ if(!jumping)hero.position.y=floorY+Math.sin(t*2.2)*.025;shadow.position.x=hero.position.x;shadow.scale.set(.45+(hero.position.y-floorY)*.12,.14,1);
+ }
+ chest.position.y=floorY+Math.sin(t*1.5)*.025;orb.rotation.y=t*.7;orb.rotation.x=Math.sin(t*.6)*.15;orb.position.y=1.08+Math.sin(t*2)*.08;orbLight.intensity=1.7+Math.sin(t*2.4)*.45;
+ host.style.backgroundPosition=`${50+hero.position.x/span*6}% 52%`;projectChest();renderer.render(scene,camera)
 }
 requestAnimationFrame(draw);
-
 
