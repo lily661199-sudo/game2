@@ -13,16 +13,16 @@ renderer.toneMappingExposure = 1.18;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog('#30483d', 23, 52);
+scene.fog = new THREE.Fog('#30483d', 40, 95);
 renderer.setClearColor('#30483d', 0);
 scene.add(new THREE.HemisphereLight('#fff0cf', '#334338', 2.1));
-const lanternWash = new THREE.PointLight('#ffd58a', 150, 14, 1.7);
+const lanternWash = new THREE.PointLight('#ffd58a', 42, 18, 1.7);
 lanternWash.position.set(-.7, 2.2, 2.2); scene.add(lanternWash);
 const keyLight = new THREE.DirectionalLight('#f7dba0', 2.4);
 keyLight.position.set(-4.5, 10, 7); keyLight.castShadow = true; scene.add(keyLight);
 const fillLight = new THREE.DirectionalLight('#c7e0c4', 1.15);
 fillLight.position.set(7, 7, -4); scene.add(fillLight);
-const camera = new THREE.PerspectiveCamera(36, 1, .1, 120);
+const camera = new THREE.PerspectiveCamera(42, 1, .1, 160);
 let room = null, bounds = new THREE.Box3(new THREE.Vector3(-10,0,-10),new THREE.Vector3(10,8,10));
 const cameraTarget = new THREE.Vector3(0, 2.2, 0), cameraGoal = new THREE.Vector3(-3.6, 2.8, 18.8);
 camera.position.copy(cameraGoal); camera.lookAt(cameraTarget);
@@ -60,7 +60,7 @@ function makeChest(){
   const band=new THREE.Mesh(new THREE.BoxGeometry(.075,.62,.63),bandMat);band.position.y=.42;chest.add(band);
   const lock=new THREE.Mesh(new THREE.TorusGeometry(.095,.027,6,12),paper('#f1d38b',.38));lock.position.set(0,.4,.33);chest.add(lock);
   const orb=new THREE.Mesh(new THREE.IcosahedronGeometry(.2,1),new THREE.MeshBasicMaterial({color:'#ffe29e'}));orb.position.set(0,1.02,0);chest.add(orb);
-  chestGlow=new THREE.PointLight('#ffcf72',4,5);chestGlow.position.set(0,1.1,.4);chest.add(chestGlow);
+  chestGlow=new THREE.PointLight('#ffcf72',1.7,5);chestGlow.position.set(0,1.1,.4);chest.add(chestGlow);
   scene.add(chest);
 }
 makeHero();makeChest();
@@ -81,7 +81,7 @@ function moveTarget(){
 new MutationObserver(moveTarget).observe(host,{attributes:true,attributeFilter:['class']});
 const loader=new GLTFLoader();
 loader.load('assets/3d/dream-tide-paper-harbor.glb',(gltf)=>{
-  room=gltf.scene;scene.add(room);
+  room=gltf.scene;\n  const rawBounds=new THREE.Box3().setFromObject(room), rawSize=rawBounds.getSize(new THREE.Vector3()), rawCenter=rawBounds.getCenter(new THREE.Vector3());\n  const fitScale=Math.min(18/Math.max(rawSize.x,1),9/Math.max(rawSize.y,1),24/Math.max(rawSize.z,1));\n  room.scale.setScalar(fitScale);room.position.set(-rawCenter.x*fitScale,-rawCenter.y*fitScale,-rawCenter.z*fitScale);scene.add(room);
   room.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;if(node.material)node.material.needsUpdate=true}});
   bounds.setFromObject(room);if(gltf.animations.length){mixer=new THREE.AnimationMixer(room);gltf.animations.forEach(clip=>mixer.clipAction(clip).play())}
   host.classList.add('paper-3d-ready');moveTarget();hero.visible=true;
@@ -108,3 +108,4 @@ function draw(){requestAnimationFrame(draw);const dt=Math.min(clock.getDelta(),.
   if(mixer)mixer.update(dt);camera.lookAt(cameraTarget);renderer.render(scene,camera)
 }
 requestAnimationFrame(draw);
+
